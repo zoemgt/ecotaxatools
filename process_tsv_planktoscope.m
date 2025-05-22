@@ -73,7 +73,11 @@ base(i).pixelsize=pixelsize;
     base(i).volconc=unique(S.sample_concentrated_sample_volume)/1000000; %concentrated or diluted water volume [mL], convert in m3
     
     % dilution_factor
-    base(i).dilution_factor=unique(S.sample_dilution_factor); %concentrating factor
+    if isnan(S.sample_dilution_factor)
+    base(i).dilution_factor = 1;
+    else
+    base(i).dilution_factor = unique(S.sample_dilution_factor); % concentrating factor
+    end
     
     % nb_frame
     base(i).nb_frame=unique(S.acq_nb_frame);

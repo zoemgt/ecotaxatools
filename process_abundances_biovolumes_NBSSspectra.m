@@ -107,11 +107,23 @@ for meth = 1:3
             
         else %d1 and d2 
 
+            if numel(conver) > 1
+                 for k = 1:numel(conver)  
+                 Ab(j) = sum(ID(:,j)) * conver(k);
+                 eval(['base_spectres(i).d' num2str(k) '.Ab(j,1)=Ab(j);'])
+                 Abtot(j) = sum(ID(:,j));
+                 eval(['base_spectres(i).d' num2str(k) '.Abtot(j,1)=Abtot(j);'])
+                 end
+            else
+
             Ab(j)=sum(ID(:,j)).*conver; %abundance per fraction related to volume
             eval(['base_spectres(i).d' num2str(fracnb) '.Ab(j,1)=Ab(j);']) %abundance per fraction related to volume (#/m3)
             Abtot(j)=sum(ID(:,j)); %total abundance over the entire sampled depth (number # of organisms in total not related to the volume filtered)
             eval(['base_spectres(i).d' num2str(fracnb) '.Abtot(j,1)=Abtot(j);']) %number # of organisms in total for the scanned fraction not related to the filtered volume
-        end
+            
+            end
+
+         end
 
         %if meth == 1
         %sizes(:,j)=ID(:,j).*esd; 
