@@ -72,6 +72,14 @@ end
 
 [n,m]=size(base);
 
+%% sorted by date
+
+%extract dates from the dataset
+dates = [base.date];  
+%sort
+[~, sort_idx] = sort(dates);
+base = base(sort_idx);
+
 %% latitude and longitude of the samples
 
 %extract longitude and latitude from the dataset
