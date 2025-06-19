@@ -72,11 +72,11 @@ base(i).pixelsize=pixelsize;
     % volconc in m3 
     base(i).volconc=unique(S.sample_concentrated_sample_volume)/1000000; %concentrated or diluted water volume [mL], convert in m3
     
-    % dilution_factor
-    if isnan(S.sample_dilution_factor)
-    base(i).dilution_factor = 1;
+    % concentration_factor
+    if isnan(S.sample_concentration_factor)
+    base(i).concentration_factor = 1;
     else
-    base(i).dilution_factor = 1/unique(S.sample_dilution_factor); % concentrating factor
+    base(i).concentration_factor = unique(S.sample_concentration_factor); % concentrating factor
     end
     
     % nb_frame
@@ -135,7 +135,7 @@ base(i).fracids=unique(S.acq_id); %see if there is size fraction
 
         end
 
-        eval(['base(i).d' num2str(fracnb) '.conver=  base(i).dilution_factor.*base(i).volconc./(base(i).volume_imaged_processed.*base(i).sample_initial_col_vol_m3);']); %[m3] 
+        eval(['base(i).d' num2str(fracnb) '.conver=  base(i).volconc./(base(i).concentration_factor.*base(i).volume_imaged_processed.*base(i).sample_initial_col_vol_m3);']); %[m3] 
 
     end
 
