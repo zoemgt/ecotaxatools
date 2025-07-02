@@ -72,11 +72,11 @@ base(i).pixelsize=pixelsize;
     % volconc in m3 
     base(i).volconc=unique(S.sample_concentrated_sample_volume)/1000000; %concentrated or diluted water volume [mL], convert in m3
     
-    % dilution_factor
-    if isnan(S.sample_dilution_factor)
-    base(i).dilution_factor = 1;
+    % concentration_factor
+    if isnan(S.sample_concentration_factor)
+    base(i).concentration_factor = 1;
     else
-    base(i).dilution_factor = unique(S.sample_dilution_factor); % concentrating factor
+    base(i).concentration_factor = unique(S.sample_concentration_factor); % concentrating factor
     end
     
     % nb_frame
@@ -123,7 +123,7 @@ base(i).fracids=unique(S.acq_id); %see if there is size fraction
             eval(['base(i).d' num2str(fracnb) '.minor=S.object_minor(I)*pixelsize;']); %length in pixels of the minor axis of the bestellipsoid approximation (width of the organism)
             eval(['base(i).d' num2str(fracnb) '.area_exc=S.object_area_exc(I)*(pixelsize^2);']); %ratio between the distance between the foci of the ellipse and the length of its major axis (elongation of the organism) 
             eval(['base(i).d' num2str(fracnb) '.area=S.object_area(I)*(pixelsize^2);']); %number of pixels in the region (size of the organism)
-            eval(['base(i).d' num2str(fracnb) '.ESD=2*(((S.object_area(I)*(pixelsize^2))/pi).^0.5);']); %ESD: Equivalent Spherical Diameter (µm)
+            eval(['base(i).d' num2str(fracnb) '.ESD=2*(((S.object_area(I)*(pixelsize^2))/pi).^0.5);']); %ESD: Equivalent Spherical Diameter (Âµm)
 
         else
 
@@ -131,11 +131,11 @@ base(i).fracids=unique(S.acq_id); %see if there is size fraction
             eval(['base_Zooscan(i).d' num2str(fracnb) '.minor=cellfun(@str2num,S.object_minor(I))*pixelsize;']); %length in pixels of the minor axis of the bestellipsoid approximation (width of the organism)
             eval(['base_Zooscan(i).d' num2str(fracnb) '.area_exc=cellfun(@str2num,S.object_area_exc(I))*(pixelsize^2);']); %ratio between the distance between the foci of the ellipse and the length of its major axis (elongation of the organism)
             eval(['base_Zooscan(i).d' num2str(fracnb) '.area=cellfun(@str2num,S.object_area(I))*(pixelsize^2);']); %number of pixels in the region (size of the organism)
-            eval(['base_Zooscan(i).d' num2str(fracnb) '.ESD=2*((cellfun(@str2num,S.object_area(I))*(pixelsize^2)/pi).^0.5);']); %ESD: Equivalent Spherical Diameter (µm)          
+            eval(['base_Zooscan(i).d' num2str(fracnb) '.ESD=2*((cellfun(@str2num,S.object_area(I))*(pixelsize^2)/pi).^0.5);']); %ESD: Equivalent Spherical Diameter (Âµm)          
 
         end
 
-        eval(['base(i).d' num2str(fracnb) '.conver=  base(i).dilution_factor.*base(i).volconc./(base(i).volume_imaged_processed.*base(i).sample_initial_col_vol_m3);']); %[m3] 
+        eval(['base(i).d' num2str(fracnb) '.conver=  base(i).volconc./(base(i).concentration_factor.*base(i).volume_imaged_processed.*base(i).sample_initial_col_vol_m3);']); %[m3] 
 
     end
 
