@@ -752,8 +752,7 @@ set(gca,'XTickLabelRotation',75);
 sampleid = strrep(sampleid, '_', '\_');
 set(gca, 'ylim', [0 100]);
 
-l=legend(h,plankton_groups_data_group,'fontsize',8,'Location','eastoutside','NumColumns',1);
-title(l,'Plankton Groups','fontsize',10);
+l = legend(h, plankton_groups_data_group, 'fontsize', 8, 'Location', 'eastoutside', 'NumColumns', 1);
 
 %Export and save? 
 if save==false;
